@@ -42,7 +42,7 @@ class DiceLoss(nn.Module):
         if hasattr(self, 'weight'):
             if self.weight.type() != predict.type():
                 self.weight = self.weight.type_as(predict)
-            dice_coef = torch.sum(dice_coef * self.weight, dim=1)  # (N, C)
+                dice_coef = dice_coef * self.weight * C  # (N, C)
         dice_loss = 1 - torch.mean(dice_coef)  # 1
 
         return dice_loss
